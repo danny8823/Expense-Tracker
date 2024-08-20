@@ -53,7 +53,6 @@ const usersController = {
     const token = jwt.sign({ id: user._id }, "dannyboy", {
       expiresIn: "30d",
     });
-    console.log(token)
     //!Send the response
     res.json({
       message: "Login Success",
@@ -67,7 +66,6 @@ const usersController = {
   //!profile
   profile: asyncHandler(async (req, res) => {
     //! Find the user
-    console.log(req.user);
     const user = await User.findById(req.user);
     if (!user) {
       throw new Error("User not found");

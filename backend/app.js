@@ -2,7 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose')
 const userRouter = require('./routes/userRouter');
 const errorHandler = require('./middlewares/errorHandlerMiddleware');
-const cors = require('cors')
+const cors = require('cors');
+const categoryRouter = require('./routes/categoryRouter');
+const transactionRouter = require('./routes/transactionRouter')
 const app = express()
 const URL = 'mongodb+srv://dannyyoo714:Jesuschrist8823!@tracker.dc11u.mongodb.net/'
 
@@ -25,6 +27,8 @@ app.use(express.json()) //? PASS INCOMING JSON DATA
 
 // ! Routes
 app.use('/', userRouter);
+app.use('/', categoryRouter);
+app.use('/', transactionRouter);
 
 // ? Error handler middleware
 app.use(errorHandler)
