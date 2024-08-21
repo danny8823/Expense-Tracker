@@ -1,11 +1,23 @@
-
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import HeroSection from "./components/Home/HomePage"
+import PublicNavbar from "./components/Navbar/PublicNavbar"
+import LoginForm from "./components/Users/Login"
+import RegistrationForm from "./components/Users/Register"
+import PrivateNavbar from "./components/Navbar/PrivateNavbar"
+import { getUserFromStorage } from "./utils/getUserFromStorage"
 function App() {
+  // ! GET TOKEN
+  const token = getUserFromStorage();
   return (
-    <>
-      <h1 className="text-3xl text-red-500 font-bold underline">
-      Hello world!
-    </h1>
-    </>
+    <BrowserRouter>
+    {/* NAVBAR */}
+      {token ? <PrivateNavbar/> : <PublicNavbar/>}
+      <Routes>
+        <Route path = "/" element = {<HeroSection/>}/>
+        <Route path = "/login" element = {<LoginForm/>}/>
+        <Route path = "/register" element = {<RegistrationForm/>}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
