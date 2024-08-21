@@ -5,13 +5,14 @@ import LoginForm from "./components/Users/Login"
 import RegistrationForm from "./components/Users/Register"
 import PrivateNavbar from "./components/Navbar/PrivateNavbar"
 import { getUserFromStorage } from "./utils/getUserFromStorage"
+import { useSelector } from "react-redux"
+
 function App() {
-  // ! GET TOKEN
-  const token = getUserFromStorage();
+  const user = useSelector((state) => state?.auth?.user)
   return (
     <BrowserRouter>
     {/* NAVBAR */}
-      {token ? <PrivateNavbar/> : <PublicNavbar/>}
+      {user ? <PrivateNavbar/> : <PublicNavbar/>}
       <Routes>
         <Route path = "/" element = {<HeroSection/>}/>
         <Route path = "/login" element = {<LoginForm/>}/>

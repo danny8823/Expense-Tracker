@@ -7,15 +7,18 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 import { loginAPI } from "../../services/users/userServices";
 import AlertMessage from "../Alert/AlertMessage";
 import { loginAction } from "../../redux/slice/authSlice";
-
+import { useNavigate } from "react-router-dom";
 // ! VALIDATIONS
 const validationSchema = Yup.object({
   email: Yup.string().email('Invalid').required('EMAIL is required'),
   password: Yup.string().min(5, 'Password must be at least 5 characters long').required("EMAIL IS REQUIRED")
 })
 
+
+
 const LoginForm = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   // ! MUTATION
   const {mutateAsync, isPending, isError, error, isSuccess} = useMutation({
     mutationFn: loginAPI,
@@ -43,6 +46,15 @@ const LoginForm = () => {
         })
     }
   })
+
+  // ! REDIRECT
+useEffect(() => {
+  setTimeout(() => {
+    if(isSuccess) {
+      navigate('/profile')
+    }
+  },3000)
+},[isPending, isError, error, isSuccess])
   return (
     <form 
       onSubmit={formik.handleSubmit}
