@@ -7,7 +7,7 @@ import AlertMessage from "../Alert/AlertMessage";
 
 const CategoriesList = () => {
   // ! FETCHING
-  const {data,isError,isLoading,isFetched, error} = useQuery({
+  const {data,isError,isLoading,isFetched, error,refetch} = useQuery({
     queryFn: listCategoryAPI,
     queryKey: ['list-categories']
   })
@@ -33,6 +33,8 @@ const CategoriesList = () => {
       })
       .catch((e) => console.log(e));
   };
+
+  console.log(data)
   return (
     <div className="max-w-md mx-auto my-10 bg-white p-6 rounded-lg shadow-lg">
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">Categories</h2>

@@ -7,10 +7,22 @@ import { listTransactionsAPI } from "../../services/transactions/transactionServ
 import { listCategoryAPI } from "../../services/category/categoryServices";
 
 const TransactionList = () => {
+  // ! FILTERING STATE
+  const [filters,setFilters] = useState({
+    startDate: '',
+    endDate: '',
+    type: '',
+    category: ''
+  });
+  // ! HANDLE FILTER CHANGE
+  const handleFilterChange = (e) => {
+    const {name,value} = e.target
+    setFilters((prev) => ({...prev, [name]: value}))
+  }
   // ! FETCHING
   const {data:transactions,isError,isLoading,isFetched, error} = useQuery({
-    queryFn: listTransactionsAPI,
-    queryKey: ['list-transactions']
+    queryFn: ()=>listTransactionsAPI(filters),
+    queryKey: ['list-transactions',filters]
   })
   
   const {data:categoryData,isLoading:categoryLoading, error:categoryErr} = useQuery({
@@ -32,12 +44,16 @@ const TransactionList = () => {
         <input
           type="date"
           name="startDate"
+          value={filters.startDate}
+          onChange={handleFilterChange}
           className="p-2 rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
         />
         {/* End Date */}
         <input
           type="date"
           name="endDate"
+          value={filters.endDate}
+          onChange={handleFilterChange}
           className="p-2 rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
         />
         {/* Type */}
@@ -45,6 +61,8 @@ const TransactionList = () => {
           <select
             name="type"
             className="w-full p-2 rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 appearance-none"
+            value={filters.type}
+            onChange={handleFilterChange}
           >
             <option value="">All Types</option>
             <option value="income">Income</option>
@@ -57,7 +75,12 @@ const TransactionList = () => {
           <select
             name="category"
             className="w-full p-2 rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 appearance-none"
-          >{categoryData?.map((category)=>{
+            value={filters.category}
+            onChange={handleFilterChange}
+          >
+            <option value = 'All'>All Categories</option>
+            <option value = 'Uncategorized'>Uncategorized</option>
+            {categoryData?.map((category)=>{
             return (
               <option key = {category?._id} value = {category?.name}>
                 {category?.name}
@@ -76,7 +99,7 @@ const TransactionList = () => {
           <ul className="list-disc pl-5 space-y-2">
             {transactions?.map((transaction) => (
               <li
-                key={transaction.id}
+                key={transaction._id}
                 className="bg-white p-3 rounded-md shadow border border-gray-200 flex justify-between items-center"
               >
                 <div>

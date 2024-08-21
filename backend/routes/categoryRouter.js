@@ -12,7 +12,8 @@ categoryRouter.post(
 )
 // ! LISTING
 categoryRouter.get(
-    '/api/v1/categories/lists', 
+    '/api/v1/categories/lists',
+    isAuthenticated, 
     categoryController.lists
 )
 // ! UPDATE
