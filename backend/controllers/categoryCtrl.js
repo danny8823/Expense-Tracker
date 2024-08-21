@@ -74,7 +74,6 @@ const categoryController = {
   //! delete
   delete: asyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id);
-    console.log(category.user, req.user)
     if (category && category.user.toString() === req.user.toString()) {
       //!  Update transactions that have this category
       const defaultCategory = "Uncategorized";

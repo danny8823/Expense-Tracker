@@ -6,9 +6,9 @@ const categoryController = require('../controllers/categoryCtrl');
 
 // ! ADD
 categoryRouter.post(
-    '/api/v1/categories/create', 
-    categoryController.create,
-    isAuthenticated
+    '/api/v1/categories/create',
+    isAuthenticated, 
+    categoryController.create
 )
 // ! LISTING
 categoryRouter.get(
@@ -21,10 +21,10 @@ categoryRouter.put(
     isAuthenticated,
     categoryController.update
 )
-// ! DELETE
+//! delete
 categoryRouter.delete(
-    '/api/v1/categories/delete/:id',
+    "/api/v1/categories/delete/:id",
     isAuthenticated,
     categoryController.delete
-)
+  );
 module.exports = categoryRouter
