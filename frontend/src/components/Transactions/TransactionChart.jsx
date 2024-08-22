@@ -14,7 +14,7 @@ const TransactionChart = () => {
   })
   
   // // ! CALCULATE TOTAL INCOME AND EXPENSES
-  const totals = transactions.reduce((acc,transaction)=>{
+  const totals = transactions?.reduce((acc,transaction)=>{
     if(transaction?.type === 'income'){
       acc.income += transaction?.amount
     }else{
