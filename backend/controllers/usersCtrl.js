@@ -79,7 +79,6 @@ const usersController = {
     const { newPassword } = req.body;
     //! Find the user
     const user = await User.findById(req.user);
-    console.log(user)
     if (!user) {
       throw new Error("User not found");
     }

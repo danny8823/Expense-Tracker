@@ -12,8 +12,8 @@ const TransactionChart = () => {
     queryFn: listTransactionsAPI,
     queryKey: ['list-transactions']
   })
-
-  // ! CALCULATE TOTAL INCOME AND EXPENSES
+  
+  // // ! CALCULATE TOTAL INCOME AND EXPENSES
   const totals = transactions.reduce((acc,transaction)=>{
     if(transaction?.type === 'income'){
       acc.income += transaction?.amount
@@ -22,7 +22,7 @@ const TransactionChart = () => {
     }
     return acc;
   },{income:0,expense:0})
-  
+  console.log(totals)
   // ! Data structure for the chart
   const data = {
     labels: ['Income','Expense'],
